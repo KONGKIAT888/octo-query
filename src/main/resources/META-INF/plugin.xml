@@ -12,22 +12,23 @@
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+
     <description><![CDATA[
-        <b>OctoQuery</b> 🐙 is a lightweight IntelliJ plugin that helps you automatically format SQL queries written inside
-        Spring Data JPA <code>@Query</code> annotations.<br><br>
+        <b>OctoQuery</b> is a lightweight IntelliJ plugin that automatically formats SQL queries written inside
+        Spring Data JPA <b>@Query</b> and <b>@NativeQuery</b> annotations.<br><br>
 
         It intelligently detects inline SQL strings and reformats them with proper line breaks, indentation, and keyword alignment —
         making your queries clean, readable, and consistent across your codebase.<br><br>
 
-        ✨ <b>Key Features</b><br>
-        • Formats SQL inside <code>@Query</code>, <code>@NativeQuery</code>, and repository methods<br>
+        <b>Key Features</b><br>
+        • Formats SQL inside <b>@Query</b>, <b>@NativeQuery</b>, and repository methods<br>
         • Supports common SQL dialects (MySQL, PostgreSQL, Oracle, SQL Server, etc.)<br>
         • Keeps parameters and placeholders intact<br>
-        • Automatically preserves your existing code style<br>
+        • Preserves your existing code style automatically<br>
         • Works seamlessly with Spring Data JPA projects<br><br>
 
         OctoQuery makes your SQL as beautiful and readable as your code —
-        because even your queries deserve some love. 🐙💜
+        because even your queries deserve some love.
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.

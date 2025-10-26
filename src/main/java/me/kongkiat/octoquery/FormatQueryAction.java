@@ -97,17 +97,17 @@ public class FormatQueryAction extends AnAction {
     private static String formatWithDtoAwareFormatter(Project project, String jpql) {
         try {
             String preprocessed = jpql
-                    .replaceAll("(?i)SELECT\\s+new\\s+([a-zA-Z0-9_\\.]+)\\s*\\(", "SELECT /* DTO_START $1 */ (")
+                    .replaceAll("(?i)SELECT\\s+new\\s+([a-zA-Z0-9_.]+)\\s*\\(", "SELECT /* DTO_START $1 */ (")
                     .replaceAll("\\)\\s*FROM", ") /* DTO_END */ FROM");
             PsiFile sqlFile = PsiFileFactory.getInstance(project).createFileFromText("temp.sql", SqlLanguage.INSTANCE, preprocessed);
             CodeStyleManager.getInstance(project).reformat(sqlFile);
             String formatted = sqlFile.getText();
             formatted = formatted
-                    .replaceAll("/\\* DTO_START ([a-zA-Z0-9_\\.]+) \\*/ \\(", "new $1(")
+                    .replaceAll("/\\* DTO_START ([a-zA-Z0-9_.]+) \\*/ \\(", "new $1(")
                     .replaceAll("\\) /\\* DTO_END \\*/", ")");
-            Pattern pattern = Pattern.compile("new\\s+([a-zA-Z0-9_\\.]+)\\s*\\((.*?)\\)", Pattern.DOTALL);
+            Pattern pattern = Pattern.compile("new\\s+([a-zA-Z0-9_.]+)\\s*\\((.*?)\\)", Pattern.DOTALL);
             Matcher matcher = pattern.matcher(formatted);
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             while (matcher.find()) {
                 String className = matcher.group(1);
                 String inner = matcher.group(2).trim().replaceAll("\\s*,\\s*", ",\n    ");

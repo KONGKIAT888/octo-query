@@ -50,6 +50,6 @@ public class FormatQueryIntention implements IntentionAction {
         while (cur != null && !(cur instanceof PsiAnnotation)) {
             cur = cur.getParent();
         }
-        return (cur instanceof PsiAnnotation) ? (PsiAnnotation) cur : null;
+        return (cur != null) ? (PsiAnnotation) cur : null;
     }
 }

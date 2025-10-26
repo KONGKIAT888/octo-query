@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.kongkiat"
-version = "1.0.0"
+version = "25.4.1"
 
 repositories {
     mavenCentral()
@@ -34,7 +34,16 @@ intellijPlatform {
         }
 
         changeNotes = """
-            Initial version
+            <h3>25.4.1</h3>
+            <ul>
+              <li>Added automatic SQL reformat after IntelliJ reformat (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)</li>
+              <li>Improved detection for <code>@Query</code> and <code>@NativeQuery</code> blocks</li>
+              <li>Enhanced DTO constructor formatting (<code>SELECT new ...</code>) for cleaner indentation</li>
+              <li>Integrated background listener — triggers reformat on save and after document commit</li>
+              <li>Added manual action shortcut: <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (Format JPA Query)</li>
+              <li>Fixed inconsistent indentation when using IntelliJ’s built-in formatter</li>
+            </ul>
+            <p><b>OctoQuery</b> now seamlessly formats your SQL inside <code>@Query</code> annotations — automatically, elegantly, and consistently.</p>
         """.trimIndent()
     }
 }

@@ -1,11 +1,11 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>me.kongkiat.springqueryformatter</id>
+    <id>me.kongkiat.octoquery</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
-    <name>Spring Query Formatter</name>
+    <name>OctoQuery</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor url="https://www.kongkiat.me">Kongkiat</vendor>
@@ -13,9 +13,21 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        A lightweight IntelliJ plugin that formats SQL queries within Spring @Query annotations.<br>
-        It supports most standard SQL dialects (MySQL, PostgreSQL, SQL Server, Oracle, etc.),<br>
-        automatically adding line breaks, indentation, and alignment for improved readability.
+        <b>OctoQuery</b> 🐙 is a lightweight IntelliJ plugin that helps you automatically format SQL queries written inside
+        Spring Data JPA <code>@Query</code> annotations.<br><br>
+
+        It intelligently detects inline SQL strings and reformats them with proper line breaks, indentation, and keyword alignment —
+        making your queries clean, readable, and consistent across your codebase.<br><br>
+
+        ✨ <b>Key Features</b><br>
+        • Formats SQL inside <code>@Query</code>, <code>@NativeQuery</code>, and repository methods<br>
+        • Supports common SQL dialects (MySQL, PostgreSQL, Oracle, SQL Server, etc.)<br>
+        • Keeps parameters and placeholders intact<br>
+        • Automatically preserves your existing code style<br>
+        • Works seamlessly with Spring Data JPA projects<br><br>
+
+        OctoQuery makes your SQL as beautiful and readable as your code —
+        because even your queries deserve some love. 🐙💜
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -30,10 +42,10 @@
     </extensions>
 
     <actions>
-        <action id="me.kongkiat.springqueryformatter.FormatQueryAction"
-                class="me.kongkiat.springqueryformatter.FormatQueryAction"
-                text="Spring Query Formatter"
-                description="Formats all SQL inside @Query annotations in this file">
+        <action id="me.kongkiat.octoquery.FormatQueryAction"
+                class="me.kongkiat.octoquery.FormatQueryAction"
+                text="Format JPA Query (OctoQuery)"
+                description="Formats and beautifies SQL inside Spring Data JPA @Query annotations using OctoQuery.">
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift F" />
         </action>
     </actions>

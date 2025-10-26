@@ -1,1 +1,1 @@
-rootProject.name = "spring-query-formatter"
+rootProject.name = "octoquery"

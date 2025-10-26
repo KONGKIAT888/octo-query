@@ -1,0 +1,7 @@
+SELECT
+    id,
+    name
+FROM
+    employee
+WHERE
+    status = 'A'

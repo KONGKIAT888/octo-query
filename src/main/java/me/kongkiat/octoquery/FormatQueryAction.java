@@ -10,21 +10,13 @@ import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.sql.psi.SqlLanguage;
 import org.jetbrains.annotations.NotNull;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FormatQueryAction extends AnAction {
-
-    @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
-        Project project = e.getProject();
-        PsiFile psiFile = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.PSI_FILE);
-        Editor editor = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR);
-        if (project == null || psiFile == null) return;
-        formatQueriesInFile(project, psiFile, editor, false);
-    }
 
     public static void formatQueriesInFile(@NotNull Project project, @NotNull PsiFile psiFile, Editor editor, boolean onlyCurrentBlock) {
         if (!(psiFile instanceof PsiJavaFile)) return;
@@ -57,7 +49,7 @@ public class FormatQueryAction extends AnAction {
         });
     }
 
-    private static boolean isNativeQuery(PsiAnnotation annotation) {
+    public static boolean isNativeQuery(PsiAnnotation annotation) {
         String qName = annotation.getQualifiedName();
         if (qName == null) return false;
         boolean isNativeAnnotation = qName.endsWith(".NativeQuery") || qName.equals("org.springframework.data.jpa.repository.NativeQuery");
@@ -66,7 +58,7 @@ public class FormatQueryAction extends AnAction {
         return attr != null && "true".equalsIgnoreCase(attr.getText());
     }
 
-    private static List<PsiAnnotation> findAllQueryAnnotations(PsiFile psiFile) {
+    public static List<PsiAnnotation> findAllQueryAnnotations(PsiFile psiFile) {
         List<PsiAnnotation> list = new ArrayList<>();
         psiFile.accept(new JavaRecursiveElementVisitor() {
             @Override
@@ -80,7 +72,7 @@ public class FormatQueryAction extends AnAction {
         return list;
     }
 
-    private static String formatQuery(Project project, String query, boolean isNative) {
+    public static String formatQuery(Project project, String query, boolean isNative) {
         return isNative ? formatWithSqlFormatter(project, query) : formatWithDtoAwareFormatter(project, query);
     }
 
@@ -119,5 +111,14 @@ public class FormatQueryAction extends AnAction {
         } catch (Exception e) {
             return jpql;
         }
+    }
+
+    @Override
+    public void actionPerformed(@NotNull AnActionEvent e) {
+        Project project = e.getProject();
+        PsiFile psiFile = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.PSI_FILE);
+        Editor editor = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR);
+        if (project == null || psiFile == null) return;
+        formatQueriesInFile(project, psiFile, editor, false);
     }
 }

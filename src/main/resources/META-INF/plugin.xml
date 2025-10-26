@@ -40,13 +40,18 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <multiHostInjector implementation="me.kongkiat.octoquery.OctoQueryLanguageInjector" />
+        <postFormatProcessor implementation="me.kongkiat.octoquery.OctoQueryPostFormatProcessor"/>
         <intentionAction>
             <className>me.kongkiat.octoquery.FormatQueryIntention</className>
             <category>OctoQuery</category>
             <language>JAVA</language>
         </intentionAction>
     </extensions>
+
+    <applicationListeners>
+        <listener class="me.kongkiat.octoquery.OctoQueryDocumentListener"
+                  topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+    </applicationListeners>
 
     <actions>
         <action id="me.kongkiat.octoquery.FormatQueryAction"

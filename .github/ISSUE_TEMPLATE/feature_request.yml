@@ -1,0 +1,20 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for the OctoQuery plugin
+title: "[Feature] "
+labels: [enhancement, feature]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        💡 Thanks for suggesting a feature for **OctoQuery Plugin**!  
+        Please describe your idea clearly — what problem it solves and how it should work.
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: 🧩 What problem does this feature solve?
+      description: Explain the context or use case where you need this feature.
+      placeholder: |
+        e.g., I often use triple-quoted @Query blocks, but the formatter doesn’t auto-format when I save the file.
+    validations:
+      required: true

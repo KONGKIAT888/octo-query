@@ -10,15 +10,6 @@ body:
         Please include examples of the SQL or `@Query` that failed to format correctly.  
         The clearer your example, the faster we can fix it 💪
 
-  - type: input
-    id: plugin_version
-    attributes:
-      label: Plugin Version
-      description: What version of the OctoQuery plugin are you using?
-      placeholder: e.g., 25.4.1 or latest from main branch
-    validations:
-      required: true
-
   - type: dropdown
     id: intellij_edition
     attributes:

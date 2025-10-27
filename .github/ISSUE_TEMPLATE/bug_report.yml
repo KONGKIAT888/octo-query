@@ -27,6 +27,7 @@ body:
       label: IntelliJ IDEA Version
       description: Select the version you're using
       options:
+        - 2025.2.4
         - 2025.2.3
         - 2025.2.2
         - 2025.1.1

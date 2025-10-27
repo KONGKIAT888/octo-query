@@ -1,0 +1,74 @@
+name: 🐞 Issue Report
+description: Report a bug or formatting issue in the OctoQuery plugin
+title: "[Bug] "
+labels: [bug, octoquery]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        👋 Thanks for reporting an issue with the **OctoQuery Plugin**!  
+        Please include examples of the SQL or `@Query` that failed to format correctly.  
+        The clearer your example, the faster we can fix it 💪
+
+  - type: input
+    id: plugin_version
+    attributes:
+      label: Plugin Version
+      description: What version of the OctoQuery plugin are you using?
+      placeholder: e.g., 25.4.1 or latest from main branch
+    validations:
+      required: true
+
+  - type: dropdown
+    id: intellij_edition
+    attributes:
+      label: IntelliJ Edition
+      description: Which edition of IntelliJ IDEA are you using?
+      options:
+        - Ultimate
+        - Community
+    validations:
+      required: true
+
+  - type: dropdown
+    id: intellij_version
+    attributes:
+      label: IntelliJ IDEA Version
+      description: Select the version you're using
+      options:
+        - 2025.2.3
+        - 2025.2.2
+        - 2025.1.1
+        - 2024.3.5
+        - 2024.2.4
+        - Other / Nightly Build
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_the_issue
+    attributes:
+      label: What’s the issue?
+      description: Briefly describe what went wrong or what didn't format correctly.
+      placeholder: |
+        e.g., Formatter breaks line alignment or removes line breaks incorrectly in @Query annotation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Stack Trace (if any)
+      description: Paste any relevant IDE or plugin log here.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: consistency
+    attributes:
+      label: Can you consistently reproduce this issue?
+      options:
+        - label: ✅ Yes, always
+        - label: ⚠️ Sometimes
+        - label: ❌ Only once

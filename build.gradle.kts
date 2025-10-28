@@ -27,6 +27,7 @@ repositories {
 // Configure IntelliJ Platform Gradle Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
+    implementation("org.commonmark:commonmark:0.22.0")
     intellijPlatform {
         create("IU", "2025.1.4.1")
         testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)

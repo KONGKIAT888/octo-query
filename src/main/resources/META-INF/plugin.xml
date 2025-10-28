@@ -40,7 +40,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <postFormatProcessor implementation="me.kongkiat.octoquery.OctoQueryPostFormatProcessor"/>
+        <postFormatProcessor implementation="me.kongkiat.octoquery.OctoQueryPostFormatProcessor" />
         <intentionAction>
             <className>me.kongkiat.octoquery.FormatQueryIntention</className>
             <category>OctoQuery</category>
@@ -50,15 +50,29 @@
 
     <applicationListeners>
         <listener class="me.kongkiat.octoquery.OctoQueryDocumentListener"
-                  topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+                  topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener" />
     </applicationListeners>
 
     <actions>
         <action id="me.kongkiat.octoquery.FormatQueryAction"
                 class="me.kongkiat.octoquery.FormatQueryAction"
-                text="Format JPA Query (OctoQuery)"
-                description="Formats and beautifies SQL inside Spring Data JPA @Query annotations using OctoQuery.">
-            <keyboard-shortcut keymap="$default" first-keystroke="alt shift F" />
-        </action>
+                text="Format SQL Query (OctoQuery)"
+                description="Formats SQL inside Spring Data JPA @Query annotations using OctoQuery."
+                use-shortcut-of="ReformatCode" />
+
+        <group id="me.kongkiat.octoquery.group"
+               text="Format SQL (OctoQuery)"
+               description="OctoQuery SQL Formatter"
+               popup="false">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+            <action
+                    id="me.kongkiat.octoquery.ContextMenuFormatAction"
+                    class="me.kongkiat.octoquery.ContextMenuFormatAction"
+                    text="Format SQL Query"
+                    description="Format SQL inside @Query/@NativeQuery annotations"
+                    icon="AllIcons.Actions.ReformatCode"
+                    use-shortcut-of="ReformatCode" />
+
+        </group>
     </actions>
 </idea-plugin>

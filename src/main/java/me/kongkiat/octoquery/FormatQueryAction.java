@@ -2,7 +2,9 @@ package me.kongkiat.octoquery;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
@@ -79,7 +81,9 @@ public class FormatQueryAction extends AnAction {
     private static String formatWithSqlFormatter(Project project, String sql) {
         try {
             PsiFile sqlFile = PsiFileFactory.getInstance(project).createFileFromText("temp.sql", SqlLanguage.INSTANCE, sql);
-            CodeStyleManager.getInstance(project).reformat(sqlFile);
+            WriteCommandAction.runWriteCommandAction(project, () -> {
+                CodeStyleManager.getInstance(project).reformat(sqlFile);
+            });
             return sqlFile.getText();
         } catch (Exception e) {
             return sql;
@@ -113,11 +117,24 @@ public class FormatQueryAction extends AnAction {
         }
     }
 
+    public static void formatSqlFile(@NotNull Project project, @NotNull PsiFile psiFile, Editor editor) {
+        if (editor == null) return;
+        Document document = editor.getDocument();
+        String text = document.getText();
+
+        String formatted = formatWithSqlFormatter(project, text);
+        if (formatted.trim().equals(text.trim())) return;
+
+        WriteCommandAction.runWriteCommandAction(project, "Format SQL File", null, () ->
+                document.setText(formatted.trim() + "\n"), psiFile
+        );
+    }
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         Project project = e.getProject();
-        PsiFile psiFile = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.PSI_FILE);
-        Editor editor = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR);
+        PsiFile psiFile = e.getData(CommonDataKeys.PSI_FILE);
+        Editor editor = e.getData(CommonDataKeys.EDITOR);
         if (project == null || psiFile == null) return;
         formatQueriesInFile(project, psiFile, editor, false);
     }

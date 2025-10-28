@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.kongkiat"
-version = "25.4.1"
+version = "25.4.2"
 
 repositories {
     mavenCentral()
@@ -34,16 +34,16 @@ intellijPlatform {
         }
 
         changeNotes = """
-            <h3>25.4.1</h3>
             <ul>
-              <li>Added automatic SQL reformat after IntelliJ reformat (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)</li>
-              <li>Improved detection for <code>@Query</code> and <code>@NativeQuery</code> blocks</li>
-              <li>Enhanced DTO constructor formatting (<code>SELECT new ...</code>) for cleaner indentation</li>
-              <li>Integrated background listener — triggers reformat on save and after document commit</li>
-              <li>Added manual action shortcut: <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (Format JPA Query)</li>
-              <li>Fixed inconsistent indentation when using IntelliJ’s built-in formatter</li>
+              <li><b>New:</b> Added context menu integration — right-click inside <code>@Query</code> or <code>@NativeQuery</code> annotations and select <b>"Format SQL Query"</b> directly from the editor.</li>
+              <li><b>New:</b> Added support for formatting standalone <code>.sql</code> files — OctoQuery now works seamlessly in SQL editors as well.</li>
+              <li>Improved detection for <code>@Query</code> and <code>@NativeQuery</code> blocks.</li>
+              <li>Enhanced DTO constructor formatting (<code>SELECT new ...</code>) for cleaner indentation.</li>
+              <li>Integrated background listener — triggers automatic SQL reformat on save and after document commit.</li>
+              <li>Manual action shortcut: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd> (Format JPA Query).</li>
+              <li>Fixed inconsistent indentation when using IntelliJ’s built-in formatter.</li>
             </ul>
-            <p><b>OctoQuery</b> now seamlessly formats your SQL inside <code>@Query</code> annotations — automatically, elegantly, and consistently.</p>
+            <p><b>OctoQuery</b> now supports both annotation-based and standalone SQL formatting — accessible via shortcuts, menus, or right-click context actions. Faster, smarter, and more consistent than ever.</p>
         """.trimIndent()
     }
 }

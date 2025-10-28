@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="sql-formatting" pluginVersion="7.1.0">
-    <developerToolsConfigurations />
+  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="notes" pluginVersion="7.1.0">
+    <developerToolsConfigurations>
+      <developerToolConfiguration developerToolId="notes" id="8d24c1af-8cf1-47ec-9e86-c783e4db11c3" name="Workbench">
+        <properties>
+          <property key="test" type="INPUT" value="kotlin.String|&#10;---&#10;&#10;## ⚙️ Features&#10;&#10;- 🧠 **Auto-detects** SQL inside `@Query`, `@NativeQuery`, and repository methods&#10;- 💅 **Formats &amp; beautifies** inline SQL with consistent indentation and alignment&#10;- 🗄️ **Supports multiple dialects** — MySQL, PostgreSQL, Oracle, SQL Server, etc.&#10;- ⚡ **Preserves parameters and placeholders** (`:param`, `?1`, etc.)&#10;- 🌱 **Integrates seamlessly** with Spring Data JPA projects&#10;- 🧩 Works directly with your editor shortcut (default: `Ctrl + Alt + L`)&#10;&#10;&#10;---&#10;&#10;## ⚙️ Features&#10;&#10;- 🧠 **Auto-detects** SQL inside `@Query`, `@NativeQuery`, and repository methods&#10;- 💅 **Formats &amp; beautifies** inline SQL with consistent indentation and alignment&#10;- 🗄️ **Supports multiple dialects** — MySQL, PostgreSQL, Oracle, SQL Server, etc.&#10;- ⚡ **Preserves parameters and placeholders** (`:param`, `?1`, etc.)&#10;- 🌱 **Integrates seamlessly** with Spring Data JPA projects&#10;- 🧩 Works directly with your editor shortcut (default: `Ctrl + Alt + L`)&#10;&#10;" />
+        </properties>
+      </developerToolConfiguration>
+    </developerToolsConfigurations>
     <expandedGroupNodeIds />
   </component>
 </project>

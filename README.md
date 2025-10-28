@@ -39,13 +39,13 @@ List<User> findByEmail(@Param("email") String email);
 - 🗄️ **Supports multiple dialects** — MySQL, PostgreSQL, Oracle, SQL Server, etc.
 - ⚡ **Preserves parameters and placeholders** (`:param`, `?1`, etc.)
 - 🌱 **Integrates seamlessly** with Spring Data JPA projects
-- 🧩 Works directly with your editor shortcut (default: `Alt + Shift + F`)
+- 🧩 Works directly with your editor shortcut (default: `Ctrl + Alt + L`)
 
 ---
 
 ## ⌨️ Usage
 
-1. Install **OctoQuery** from the [JetBrains Marketplace](https://plugins.jetbrains.com)
+1. Install **OctoQuery** from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/28845-octoquery)
 2. Open any Spring Data JPA repository file
 3. Place your cursor inside an `@Query` string
 4. Press **`Ctrl + Alt + L`**

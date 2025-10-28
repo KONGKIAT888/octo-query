@@ -21,10 +21,7 @@ jobs:
           PAGE_NAME: changelog
           TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
         run: |
-          # อ่านเนื้อหา CHANGELOG.md ทั้งหมด และ escape JSON ให้ถูกต้อง
           CONTENT=$(jq -Rs . < CHANGELOG.md)
-
-          # ส่งไปยัง JetBrains Marketplace API
           curl -X POST "https://plugins.jetbrains.com/api/pages/update" \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \

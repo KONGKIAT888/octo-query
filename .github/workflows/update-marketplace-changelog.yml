@@ -21,7 +21,7 @@ jobs:
           PLUGIN_ID: 28845
           TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
         run: |
-          CONTENT=$(jq -Rs . < CHANGELOG.md)
+          CONTENT=$(cat CHANGELOG.md)
 
           BODY=$(jq -n \
             --arg id "$PAGE_ID" \

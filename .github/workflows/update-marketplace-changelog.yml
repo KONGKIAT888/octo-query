@@ -1,0 +1,38 @@
+name: 🔄 Sync CHANGELOG.md to JetBrains Marketplace
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'CHANGELOG.md'
+
+jobs:
+  update-marketplace:
+    name: Update JetBrains Custom Page
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧩 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Read CHANGELOG.md and send to JetBrains Marketplace
+        env:
+          PLUGIN_ID: me.kongkiat.octoquery
+          PAGE_NAME: changelog
+          TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
+        run: |
+          # อ่านเนื้อหา CHANGELOG.md ทั้งหมด และ escape JSON ให้ถูกต้อง
+          CONTENT=$(jq -Rs . < CHANGELOG.md)
+
+          # ส่งไปยัง JetBrains Marketplace API
+          curl -X POST "https://plugins.jetbrains.com/api/pages/update" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"pluginId\": \"$PLUGIN_ID\",
+              \"pageName\": \"$PAGE_NAME\",
+              \"content\": $CONTENT
+            }"
+
+      - name: ✅ Done
+        run: echo "CHANGELOG.md successfully synced to JetBrains Marketplace!"

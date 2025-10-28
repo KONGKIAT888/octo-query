@@ -17,8 +17,8 @@ jobs:
 
       - name: 📦 Read CHANGELOG.md and send to JetBrains Marketplace
         env:
-          PLUGIN_ID: me.kongkiat.octoquery
-          PAGE_NAME: changelog
+          PAGE_ID: 62141
+          PLUGIN_ID: 28845
           TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
         run: |
           CONTENT=$(jq -Rs . < CHANGELOG.md)
@@ -26,9 +26,15 @@ jobs:
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
             -d "{
-              \"pluginId\": \"$PLUGIN_ID\",
-              \"pageName\": \"$PAGE_NAME\",
-              \"content\": $CONTENT
+              "id": $PAGE_ID,
+              "pluginId": $PLUGIN_ID,
+              "name": "Changelog",
+              "url": "changelog",
+              "type": "PUBLISH",
+              "content": "",
+              "generateToc": false,
+              "originalContent": $CONTENT,
+              "images": []
             }"
 
       - name: ✅ Done

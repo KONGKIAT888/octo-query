@@ -33,7 +33,7 @@ jobs:
               "type": "PUBLISH",
               "content": "",
               "generateToc": false,
-              "originalContent": $CONTENT,
+              "originalContent": "$CONTENT",
               "images": []
             }"
 

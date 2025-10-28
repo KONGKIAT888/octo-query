@@ -28,3 +28,5 @@
 `OctoQuery` now supports both **annotation-based** and **standalone SQL** formatting —  
 accessible via **shortcuts**, **menu actions**, or **right-click context menus**.  
 Faster, smarter, and more consistent than ever.
+
+test github action

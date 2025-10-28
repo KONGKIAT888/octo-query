@@ -25,7 +25,6 @@ public class OctoQueryDocumentListener implements FileDocumentManagerListener {
             PsiFile psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
             if (!(psiFile instanceof PsiJavaFile)) continue;
 
-            // ✅ รอให้ IntelliJ จัด format Java เสร็จก่อน แล้วค่อย format SQL
             ApplicationManager.getApplication().invokeLater(() -> {
                 PsiDocumentManager.getInstance(project).performLaterWhenAllCommitted(() -> {
                     WriteCommandAction.runWriteCommandAction(project, () -> {

@@ -29,8 +29,8 @@ jobs:
             --arg name "Changelog" \
             --arg url "changelog" \
             --arg type "PUBLISH" \
-            --arg content "<h2>🧩 OctoQuery – Changelog</h2><p>Synced automatically from GitHub.</p><pre>${CONTENT}</pre>" \
-            --arg originalContent "Auto updated via GitHub Actions" \
+            --arg content "" \
+            --arg originalContent "$CONTENT" \
             '{id: ($id|tonumber), pluginId: ($pluginId|tonumber), name: $name, url: $url, type: $type, content: $content, generateToc: false, originalContent: $originalContent, images: []}' \
           )
 

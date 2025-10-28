@@ -22,7 +22,7 @@ jobs:
           TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
         run: |
           CONTENT=$(jq -Rs . < CHANGELOG.md)
-          curl -X POST "https://plugins.jetbrains.com/api/pages/update" \
+          curl -X PUT "https://plugins.jetbrains.com/api/plugins/28845/content-pages" \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
             -d "{

@@ -22,20 +22,30 @@ jobs:
           TOKEN: ${{ secrets.JETBRAINS_TOKEN }}
         run: |
           CONTENT=$(jq -Rs . < CHANGELOG.md)
-          curl -X PUT "https://plugins.jetbrains.com/api/plugins/28845/content-pages" \
+
+          BODY=$(jq -n \
+            --arg id "$PAGE_ID" \
+            --arg pluginId "$PLUGIN_ID" \
+            --arg name "Changelog" \
+            --arg url "changelog" \
+            --arg type "PUBLISH" \
+            --arg content "<h2>🧩 OctoQuery – Changelog</h2><p>Synced automatically from GitHub.</p><pre>${CONTENT}</pre>" \
+            --arg originalContent "Auto updated via GitHub Actions" \
+            '{id: ($id|tonumber), pluginId: ($pluginId|tonumber), name: $name, url: $url, type: $type, content: $content, generateToc: false, originalContent: $originalContent, images: []}' \
+          )
+
+          echo "📤 Sending request to JetBrains Marketplace..."
+          echo "$BODY" | jq .
+
+          curl -s -o response.json -w "%{http_code}" \
+            -X PUT "https://plugins.jetbrains.com/api/plugins/$PLUGIN_ID/content-pages" \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{
-              "id": $PAGE_ID,
-              "pluginId": $PLUGIN_ID,
-              "name": "Changelog",
-              "url": "changelog",
-              "type": "PUBLISH",
-              "content": "",
-              "generateToc": false,
-              "originalContent": "$CONTENT",
-              "images": []
-            }"
+            -d "$BODY"
+
+          echo ""
+          echo "✅ Response:"
+          cat response.json
 
       - name: ✅ Done
         run: echo "CHANGELOG.md successfully synced to JetBrains Marketplace!"

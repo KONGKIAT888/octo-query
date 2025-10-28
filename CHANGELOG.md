@@ -1,4 +1,4 @@
-# 🧩 OctoQuery – Changelog
+# 🧩 OctoQuery – Changelog test
 
 ## v25.4.2 
 

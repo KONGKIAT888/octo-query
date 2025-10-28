@@ -1,3 +1,13 @@
+import org.intellij.markdown.flavours.commonmark.CommonMarkFlavourDescriptor
+import org.intellij.markdown.html.HtmlGenerator
+import org.intellij.markdown.parser.MarkdownParser
+
+buildscript {
+    dependencies {
+        classpath("org.jetbrains:markdown:0.7.3")
+    }
+}
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
@@ -36,7 +46,11 @@ intellijPlatform {
         changeNotes = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md"))
             .asText
             .map { text ->
-                text.substringAfter("---").substringBefore("---").trim()
+                val latestChanges = text.substringAfter("## v").substringBefore("---").trim()
+                val flavour = CommonMarkFlavourDescriptor()
+                val parsedTree = MarkdownParser(flavour)
+                    .buildMarkdownTreeFromString(latestChanges)
+                HtmlGenerator(latestChanges, parsedTree, flavour).generateHtml()
             }
     }
 }

@@ -1,0 +1,34 @@
+name: 🧑🏻‍💻 Feature Enhancement
+description: Create or track a new feature enhancement or development improvement for the OctoQuery plugin
+title: "[Feature] "
+labels: [feature, enhancement, development]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧩 Feature Enhancement Proposal
+        Thank you for contributing to **OctoQuery Plugin**!  
+        Please describe your feature or enhancement clearly — include what it does, why it’s useful, and how it should behave.  
+        This helps reviewers understand the scope, motivation, and technical direction of your proposal.
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: 🧠 Feature Description
+      description: Describe the feature or enhancement you want to implement. What will it do, and where will it appear in the plugin?
+      placeholder: |
+        e.g., Add automatic SQL formatting on file save when detecting @Query annotations in Java classes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 🎯 Purpose & Motivation
+      description: Explain why this enhancement is needed. What problem does it solve, or what improvement does it bring?
+      placeholder: |
+        e.g., Developers often forget to format queries manually.  
+        Auto-formatting on save will improve consistency and reduce time spent cleaning up SQL.
+    validations:
+      required: true

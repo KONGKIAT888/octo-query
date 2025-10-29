@@ -60,6 +60,14 @@
                 description="Formats SQL inside Spring Data JPA @Query annotations using OctoQuery."
                 use-shortcut-of="ReformatCode" />
 
+        <action id="me.kongkiat.octoquery.GenerateProjectionAction"
+                class="me.kongkiat.octoquery.actions.GenerateProjectionAction"
+                text="Generate Projection Interface from SQL"
+                description="Generate a Java projection interface based on SQL SELECT aliases">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="alt shift P" keymap="$default"/>
+        </action>
+
         <group id="me.kongkiat.octoquery.group"
                text="Format SQL (OctoQuery)"
                description="OctoQuery SQL Formatter"

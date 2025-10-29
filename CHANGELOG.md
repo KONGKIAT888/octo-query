@@ -1,5 +1,18 @@
 # 🧩 OctoQuery – Changelog
 
+## v25.4.3
+
+- **New:** Added DTO Constructor Support in Generate Projection Interface — Now supports generating Java interfaces from DTO constructors without requiring `AS` aliases.
+  - Automatically extracts field names from `SELECT new ClassName(field1, field2, ...)` syntax
+  - Handles complex field expressions like `tab1.field1` → `getField1()`
+  - Maintains full compatibility with existing `AS` alias-based interface generation
+- **Enhanced:** Improved field extraction algorithm to handle nested parentheses and complex expressions in DTO constructors
+- **Fixed:** Resolved "No 'AS' found in the selected SQL SELECT list" error when working with DTO constructors
+- **Improved:** Better handling of string literals and function calls in parameter parsing
+- **Documentation:** Added comprehensive code comments and JavaDoc documentation for better maintainability
+
+---
+
 ## v25.4.2 
 
 - **New:** Added context menu integration — you can now right-click inside `@Query` or `@NativeQuery` annotations and select **“Format SQL Query”** directly from the editor.  
@@ -19,7 +32,7 @@
 - Improved detection for `@Query` and `@NativeQuery` blocks.
 - Enhanced DTO constructor formatting (`SELECT new ...`) for cleaner indentation.
 - Integrated background listener — triggers reformat on save and after document commit.
-- Added manual action shortcut: **Alt + Shift + F** (Format JPA Query).
+- Added a manual action shortcut: **Alt + Shift + F** (Format JPA Query).
 - Fixed inconsistent indentation when using IntelliJ’s built-in formatter.
 
 ---

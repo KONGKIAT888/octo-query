@@ -14,21 +14,26 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
 
     <description><![CDATA[
-        <b>OctoQuery</b> is a lightweight IntelliJ plugin that automatically formats SQL queries written inside
-        Spring Data JPA <b>@Query</b> and <b>@NativeQuery</b> annotations.<br><br>
+        <b>OctoQuery</b> is the ultimate SQL companion for Spring Data JPA developers. This intelligent IntelliJ plugin
+        automatically formats your SQL queries and even generates Java projection interfaces — making your database code
+        cleaner, more readable, and more maintainable.<br><br>
 
-        It intelligently detects inline SQL strings and reformats them with proper line breaks, indentation, and keyword alignment —
-        making your queries clean, readable, and consistent across your codebase.<br><br>
+        It seamlessly detects inline SQL strings within your <b>@Query</b> and <b>@NativeQuery</b> annotations, transforming them
+        from messy one-liners into beautifully formatted queries with proper indentation, line breaks, and keyword alignment.<br><br>
 
         <b>Key Features</b><br>
-        • Formats SQL inside <b>@Query</b>, <b>@NativeQuery</b>, and repository methods<br>
-        • Supports common SQL dialects (MySQL, PostgreSQL, Oracle, SQL Server, etc.)<br>
-        • Keeps parameters and placeholders intact<br>
-        • Preserves your existing code style automatically<br>
-        • Works seamlessly with Spring Data JPA projects<br><br>
+        • <b>Auto-format SQL</b> inside @Query, @NativeQuery, and repository methods<br>
+        • <b>Generate Projection Interfaces</b> from SQL SELECT aliases (Alt+Shift+P)<br>
+        • <b>Multi-dialect Support</b> - MySQL, PostgreSQL, Oracle, SQL Server, and more<br>
+        • <b>Smart Parameter Preservation</b> - keeps your placeholders and parameters intact<br>
+        • <b>Code Style Integration</b> - respects your existing formatting preferences<br>
+        • <b>Multiple Access Points</b> - auto-format on save, context menu, or keyboard shortcuts<br><br>
 
-        OctoQuery makes your SQL as beautiful and readable as your code —
-        because even your queries deserve some love.
+        Whether you're writing complex joins or simple selects, OctoQuery ensures your SQL looks as professional
+        as your Java code. Boost your productivity and code quality — because your queries deserve the same care
+        as the rest of your application.<br><br>
+
+        <b>Perfect for Spring Data JPA projects!</b> Works instantly with no configuration required.
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.

@@ -71,10 +71,16 @@ public class GenerateProjectionAction extends AnAction {
 
         // Extract column aliases from the SELECT clause
         List<String> aliases = extractAliases(selectClause);
+
+        // If no AS aliases found, try to extract from DTO constructor
+        if (aliases.isEmpty()) {
+            aliases = extractDtoConstructorFields(selectedText);
+        }
+
         if (aliases.isEmpty()) {
             Messages.showWarningDialog(project,
-                    "No 'AS <alias>' found in the selected SQL SELECT list.",
-                    "No Aliases Found");
+                    "No column aliases or DTO constructor fields found in the selected SQL.",
+                    "No Fields Found");
             return;
         }
 
@@ -321,6 +327,130 @@ public class GenerateProjectionAction extends AnAction {
         return result;
     }
 
+    /**
+     * Finds the matching closing parenthesis for a given opening parenthesis.
+     * Handles nested parentheses correctly.
+     *
+     * @param str The string to search in
+     * @param openPos Position of the opening parenthesis
+     * @return Position of the matching closing parenthesis, or -1 if not found
+     */
+    private int findMatchingParenthesis(String str, int openPos) {
+        if (openPos >= str.length() || str.charAt(openPos) != '(') {
+            return -1;
+        }
+
+        int parenLevel = 1;
+        boolean inString = false;
+        char stringChar = '\0';
+
+        for (int i = openPos + 1; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            // Handle string literals
+            if (!inString && (c == '\'' || c == '"')) {
+                inString = true;
+                stringChar = c;
+            } else if (inString && c == stringChar) {
+                inString = false;
+            } else if (!inString) {
+                if (c == '(') {
+                    parenLevel++;
+                } else if (c == ')') {
+                    parenLevel--;
+                    if (parenLevel == 0) {
+                        return i; // Found matching parenthesis
+                    }
+                }
+            }
+        }
+
+        return -1; // No matching parenthesis found
+    }
+
+    /**
+     * Extracts field names from DTO constructor syntax.
+     * This method parses "new ClassName(field1, field2, ...)" patterns
+     * and returns a list of field names for interface generation.
+     *
+     * @param sql The SQL text that may contain DTO constructor
+     * @return List of field names extracted from DTO constructor, or empty list if none found
+     */
+    private List<String> extractDtoConstructorFields(String sql) {
+        List<String> fields = new ArrayList<>();
+
+        // Pattern to match DTO constructor: "new ClassName(...)"
+        Pattern constructorPattern = Pattern.compile("(?i)new\\s+([a-zA-Z0-9_.]+)\\s*\\(");
+        Matcher constructorMatcher = constructorPattern.matcher(sql);
+
+        while (constructorMatcher.find()) {
+            int constructorStart = constructorMatcher.end() - 1; // Position of opening parenthesis
+            int constructorEnd = findMatchingParenthesis(sql, constructorStart);
+
+            if (constructorEnd != -1) {
+                // Extract the parameters inside the constructor
+                String params = sql.substring(constructorStart + 1, constructorEnd).trim();
+
+                // Split parameters by top-level commas (respecting nested parentheses and strings)
+                List<String> paramList = splitByTopLevelCommas(params);
+
+                // Process each parameter to extract field names
+                for (String param : paramList) {
+                    String cleanedParam = removeComments(param).trim();
+                    String fieldName = extractFieldNameFromExpression(cleanedParam);
+
+                    if (fieldName != null && !fieldName.isEmpty() && !fields.contains(fieldName)) {
+                        fields.add(fieldName);
+                    }
+                }
+            }
+        }
+
+        return fields;
+    }
+
+    /**
+     * Extracts field name from a parameter expression.
+     * Handles various formats like "table.column", "alias.column", "column", etc.
+     *
+     * @param expression The parameter expression from DTO constructor
+     * @return Field name suitable for getter method generation
+     */
+    private String extractFieldNameFromExpression(String expression) {
+        if (expression == null || expression.trim().isEmpty()) {
+            return null;
+        }
+
+        // Remove function calls, literals, and complex expressions
+        String cleaned = expression.trim();
+
+        // Skip if it's a literal value (number, string)
+        if (cleaned.matches("^'.*'$") || cleaned.matches("^\".*\"$") || cleaned.matches("^\\d+(\\.\\d+)?$")) {
+            return null;
+        }
+
+        // Handle table.column or alias.column format
+        if (cleaned.contains(".")) {
+            String[] parts = cleaned.split("\\.");
+            if (parts.length >= 2) {
+                return parts[parts.length - 1]; // Get the last part after the last dot
+            }
+        }
+
+        // Handle function calls like "FUNCTION(table.column)" - extract from inside
+        if (cleaned.contains("(") && cleaned.contains(")")) {
+            int openParen = cleaned.lastIndexOf('(');
+            int closeParen = cleaned.lastIndexOf(')');
+            if (openParen < closeParen) {
+                String innerExpression = cleaned.substring(openParen + 1, closeParen).trim();
+                return extractFieldNameFromExpression(innerExpression);
+            }
+        }
+
+        // Return the cleaned expression as field name if no special handling
+        return cleaned;
+    }
+
     private String capitalize(String alias) {
         if (alias == null || alias.isEmpty()) {
             return alias;
@@ -397,7 +527,6 @@ public class GenerateProjectionAction extends AnAction {
     }
 
     private void createJavaFile(Project project, PsiDirectory directory, String interfaceName, String interfaceCode) {
-//        WriteIntentReadAction.run((Runnable) () -> {
         ApplicationManager.getApplication().runWriteAction(() -> {
             try {
                 String fileName = interfaceName + ".java";
@@ -440,7 +569,6 @@ public class GenerateProjectionAction extends AnAction {
                 );
             }
         });
-//        });
     }
 
     /**
